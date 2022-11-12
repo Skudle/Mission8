@@ -18,6 +18,10 @@ d0 = Duree(0,0,0)
 d1 = Duree(10,20,59)
 d2 = Duree( 8,41,25)
 
+d2.ajouter(d1)
+print(d2)
+
+
 # FONCTION POUT TESTER LA METHODE __str__ DE LA CLASSE Duree
 def test_Duree_str() :
     assert d1.__str__() == "10:20:59", "Test 1 Duree __str__"
