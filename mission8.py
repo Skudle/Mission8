@@ -45,10 +45,7 @@ class Duree :
         @post: Retourne True si cette durée (self) est plus grand que la durée
                d passée en paramètre; retourne False sinon.
         """
-        if self.to_secondes() > d.to_secondes():
-            return True
-        else:
-            return False
+        return self.to_secondes() > d.to_secondes()
 
     def ajouter(self, d):
         """
@@ -74,12 +71,23 @@ class Duree :
 
 
 class Chanson :
-    # A COMPLETER PAR LES ETUDIANTS    
-    pass
+    def __init__(self, t: str, a: str, d):
+        self.titre = t.replace(" ", "_")
+        self.auteur = a.replace(" ", "_")
+        self.duree = d
+    def __str__(self):
+        """
+           @pre:  -
+           @post: Retourne un string décrivant cette chanson sous le format
+                  "TITRE - AUTEUR - DUREE".
+                  Par exemple: "Let's_Dance - David_Bowie - 00:04:05"
+        """
+        return f"{self.titre} - {self.auteur} - {self.duree}"
 
 class Album :
-    # A COMPLETER PAR LES ETUDIANTS
-    pass
+    def __init__(self, numero: int):
+        self.num = numero
+
 
 if __name__ == "__main__":
     # Grâce à la ligne ci-dessus, le code ci-dessous ne sera exécuté que si on n'exécute ce fichier directement.
