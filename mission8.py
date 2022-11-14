@@ -87,6 +87,27 @@ class Chanson :
 class Album :
     def __init__(self, numero: int):
         self.num = numero
+        self.song_list = []
+        self.duration = 0
+        self.list_len = len(self.song_list)
+
+    def add(self, chanson):
+        splitted = chanson.split()
+        if (len(self.song_list)) == 100 or self.duration == (75*60):
+            return False
+        else:
+            self.list_len += 1
+            self.song_list.append(f"{self.list_len:02d} {splitted[0]} - {splitted[1]} - 00:0{int(splitted[2])}:{int(splitted[3]):02d}")
+            self.duration = self.duration + (int((splitted[2]))*60) + (int((splitted[3])))
+            return True
+    def __str__(self):
+        x = (str(e) for e in self.song_list)
+        return f"{self} {self.num} ( {self.list_len} chansons, {self.duration} )\n.{join(x)}"
+
+
+
+
+
 
 
 if __name__ == "__main__":
