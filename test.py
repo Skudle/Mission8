@@ -17,9 +17,8 @@ from mission8 import Duree, Chanson, Album
 d0 = Duree(0,0,0)
 d1 = Duree(10,20,59)
 d2 = Duree( 8,41,25)
+print(d0)
 
-d2.ajouter(d1)
-print(d2)
 
 
 # FONCTION POUT TESTER LA METHODE __str__ DE LA CLASSE Duree
@@ -62,15 +61,22 @@ test_Duree_ajouter()
 ################################
 
 # CREATION DE QUELQUES OBJETS DE LA CLASSE Chanson A TESTER
-c = Chanson("Let's Dance", "David Bowie", Duree(0,4,5))
+c1 = Chanson("Let's Dance", "David Bowie", Duree(0,4,5))
+c2 = Chanson("Je suis un sniper", "Locklear", Duree(0,1,38))
+tom = Album(1)
+tom.add("Let's_Dance David_Bowie 4 5")
+tom.add("Enjoy_The_Silence Depeche_Mode 4 13")
+#print(tom)
+
 
 # FONCTION POUR TESTER LA METHODE __str__ DE LA CLASSE Chanson
 def test_Chanson_str(chanson) :
-    # A COMPLETER PAR LES ETUDIANTS
-    pass
+    assert c1.__str__() == "Let's_Dance - David_Bowie - 00:04:05", "Test 1 Chanson __str__"
+    assert c2.__str__() == "Je_suis_un_sniper - Locklear - 00:01:38", "Test 2 Chanson __str__"
+
 
 # APPEL DES DIFFERENTES FONCTIONS TEST
-test_Chanson_str(c)
+test_Chanson_str(c1)
 
 ##############################
 # Tests pour la classe Album #

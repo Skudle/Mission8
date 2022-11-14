@@ -101,8 +101,9 @@ class Album :
             self.duration = self.duration + (int((splitted[2]))*60) + (int((splitted[3])))
             return True
     def __str__(self):
-        x = (str(e) for e in self.song_list)
-        return f"{self} {self.num} ( {self.list_len} chansons, {self.duration} )\n.{join(x)}"
+        min_len = (self.duration//60)
+        sec_len = (self.duration%60)
+        return f"Album {self.num} ({self.list_len} chansons, 00:{min_len:02d}:{sec_len:02d})\n" + "\n".join(str(e) for e in self.song_list)
 
 
 
