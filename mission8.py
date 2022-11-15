@@ -1,4 +1,5 @@
 import datetime
+from copy import copy
 class Duree :
     def __init__(self, h, m, s):
         """
@@ -93,7 +94,8 @@ class Album :
         self.time_limit = Duree(1 ,15, 0)
 
     def add(self, chanson):
-        if (len(self.song_list)) == 100 or self.duration.ajouter(chanson.duree).apres(self.time_limit):
+        d = copy(self.duration)
+        if (len(self.song_list)) == 100 or d.ajouter(chanson.duree).apres(self.time_limit):
             return False
         else:
             self.song_list.append(chanson)
@@ -116,5 +118,7 @@ if __name__ == "__main__":
             if not album_list[-1].add(song):
                 num += 1
                 album_list.append(Album(num))
+                album_list[-1].add(song)
+
         for i in range(len(album_list)):
             print(f"{album_list[i]}\n")
