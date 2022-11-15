@@ -102,18 +102,21 @@ class Album :
     def __str__(self):
         return f"Album {self.num} {len(self.song_list)} chansons, {self.duration}\n" + "\n".join([str(e) for e in self.song_list])
 
-with open('music-db.txt', 'r') as f:
-    num = 1
-    album = Album(num)
-    for line in f.readlines():
-        lst = line.strip('\n').split()
-        song = Chanson(lst[0], lst[1], Duree(0,int(lst[2]), int(lst[3])))
-        if not album.add(song):
-            num += 1
-            break
-    print(album)
+def compositeur(filename): #On etait pas obligé de faire une fonction mais je voualis quand meme le faire
+    with open(filename, 'r') as f:
+        num = 1
+        album_list = [Album(num)]
+        for line in f.readlines():
+            lst = line.strip('\n').split()
+            song = Chanson(lst[0], lst[1], Duree(0,int(lst[2]), int(lst[3])))
+            if not album_list[-1].add(song):
+                num += 1
+                album_list.append(Album(num))
+            else:
+                album_list[-1].add(song)
+        return(album_list[0])
 
-
+print(compositeur('music-db.txt'))
 
 
 
