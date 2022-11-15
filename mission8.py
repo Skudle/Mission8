@@ -67,6 +67,7 @@ class Duree :
         self.hour = hour2
         self.minute = min2 % 60
         self.second = sec % 60
+        return self
 
 
 
@@ -88,22 +89,32 @@ class Album :
     def __init__(self, numero: int):
         self.num = numero
         self.song_list = []
-        self.duration = 0
-        self.list_len = len(self.song_list)
+        self.duration = Duree(0, 0, 0)
+        self.time_limit = Duree(1 ,15, 0)
 
     def add(self, chanson):
-        splitted = chanson.split()
-        if (len(self.song_list)) == 100 or self.duration == (75*60):
+        if (len(self.song_list)) == 100 or self.duration.ajouter(chanson.duree).apres(self.time_limit):
             return False
         else:
-            self.list_len += 1
-            self.song_list.append(f"{self.list_len:02d} {splitted[0]} - {splitted[1]} - 00:0{int(splitted[2])}:{int(splitted[3]):02d}")
-            self.duration = self.duration + (int((splitted[2]))*60) + (int((splitted[3])))
+            self.song_list.append(chanson)
+            self.duration.ajouter(chanson.duree)
             return True
     def __str__(self):
-        min_len = (self.duration//60)
-        sec_len = (self.duration%60)
-        return f"Album {self.num} ({self.list_len} chansons, 00:{min_len:02d}:{sec_len:02d})\n" + "\n".join(str(e) for e in self.song_list)
+        return f"Album {self.num} {len(self.song_list)} chansons, {self.duration}\n" + "\n".join([str(e) for e in self.song_list])
+
+with open('music-db.txt', 'r') as f:
+    num = 1
+    album = Album(num)
+    for line in f.readlines():
+        lst = line.strip('\n').split()
+        song = Chanson(lst[0], lst[1], Duree(0,int(lst[2]), int(lst[3])))
+        if not album.add(song):
+            num += 1
+            break
+    print(album)
+
+
+
 
 
 
