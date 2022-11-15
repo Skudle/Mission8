@@ -99,6 +99,7 @@ class Album :
             self.song_list.append(chanson)
             self.duration.ajouter(chanson.duree)
             return True
+
     def __str__(self):
         return f"Album {self.num} {len(self.song_list)} chansons, {self.duration}\n" + "\n".join([str(e) for e in self.song_list])
 
@@ -107,13 +108,13 @@ with open('music-db.txt', 'r') as f:
     album_list = [Album(num)]
     for line in f.readlines():
         lst = line.strip('\n').split()
-        song = Chanson(lst[0], lst[1], Duree(0,int(lst[2]), int(lst[3])))
+        song = Chanson(lst[0], lst[1], Duree(0, int(lst[2]), int(lst[3])))
         if not album_list[-1].add(song):
             num += 1
             album_list.append(Album(num))
-        else:
-            album_list[-1].add(song)
-    print(album_list[0]) #j'ai essaye de print album_list mais ça me renvoie quelque chose comme ça [<__main__.Album object at 0x0000022DD23F7A90>, ...
+    for i in range (len(album_list)):
+        print(f"{album_list[i]}\n")
+
 
 
 
