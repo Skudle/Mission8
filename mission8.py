@@ -103,30 +103,18 @@ class Album :
     def __str__(self):
         return f"Album {self.num} {len(self.song_list)} chansons, {self.duration}\n" + "\n".join([str(e) for e in self.song_list])
 
-with open('music-db.txt', 'r') as f:
-    num = 1
-    album_list = [Album(num)]
-    for line in f.readlines():
-        lst = line.strip('\n').split()
-        song = Chanson(lst[0], lst[1], Duree(0, int(lst[2]), int(lst[3])))
-        if not album_list[-1].add(song):
-            num += 1
-            album_list.append(Album(num))
-    for i in range (len(album_list)):
-        print(f"{album_list[i]}\n")
-
-
-
-
-
-
-
-
-
 if __name__ == "__main__":
     # Grâce à la ligne ci-dessus, le code ci-dessous ne sera exécuté que si on n'exécute ce fichier directement.
     # Ceci nous permet d'éviter que le code ci-dessous sera exécuté lorsqu'on fait un import de ce fichier,
     # par exemple dans notre fichier test.py
-    pass
-    # A COMPLETER PAR LES ETUDIANTS
-    # (mettez ici votre code pour créer les albums à partir de la lecture du fichier 'music-db.txt')
+    with open('music-db.txt', 'r') as f:
+        num = 1
+        album_list = [Album(num)]
+        for line in f.readlines():
+            lst = line.strip('\n').split()
+            song = Chanson(lst[0], lst[1], Duree(0, int(lst[2]), int(lst[3])))
+            if not album_list[-1].add(song):
+                num += 1
+                album_list.append(Album(num))
+        for i in range(len(album_list)):
+            print(f"{album_list[i]}\n")
