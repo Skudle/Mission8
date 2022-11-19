@@ -104,21 +104,32 @@ test_chanson_error_init()
 # Tests pour la classe Album #
 ##############################
 a1 = Album(1)
-def test_album_str():
-    assert a1.__str__() == "Album 1 0 chansons, 00:00:00"
+a2 = Album(2)
+a4 = Album(4)
+Squeezie = Chanson("Placement de produit", "Squeezie", Duree(0, 4, 24))
+a4.add(Squeezie)
+print(a4.duration)
+print(Squeezie.duree)
 
 
 # CREATION D'UN OBJET DE LA CLASSE Album A TESTER
-# à fournir par les étudiants
-
-# FONCTION POUR TESTER LA METHODE __str__ DE LA CLASSE Album
-# à fournir par les étudiants
+def test_album_str():
+    try:
+        a3 = Album("ere")
+    except TypeError:
+        print("Fourth test passed")
+assert a1.__str__() == "Album 1 0 chansons, 00:00:00\n"
+assert a2.__str__() == "Album 2 0 chansons, 00:00:00\n"
 
 # FONCTION POUR TESTER LA METHODE add DE LA CLASSE Album
-# à fournir par les étudiants
+def test_add():
+    assert a4.add(Squeezie) == True
+    assert a4.song_list[0] == Squeezie
+    assert a4.duration == Squeezie.duree
 
 # APPEL DES DIFFERENTES FONCTIONS TEST
 test_album_str()
+test_add()
 
 #####################################
 # Test du comportement du programme #
