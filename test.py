@@ -107,9 +107,9 @@ a1 = Album(1)
 a2 = Album(2)
 a4 = Album(4)
 Squeezie = Chanson("Placement de produit", "Squeezie", Duree(0, 4, 24))
-a4.add(Squeezie)
-print(a4.duration)
-print(Squeezie.duree)
+Squeezie2 = Chanson("Placement de produit", "Squeezie", Duree(0, 0, 0))
+a6 = Album(6)
+a5 = Album(5)
 
 
 # CREATION D'UN OBJET DE LA CLASSE Album A TESTER
@@ -125,7 +125,15 @@ assert a2.__str__() == "Album 2 0 chansons, 00:00:00\n"
 def test_add():
     assert a4.add(Squeezie) == True
     assert a4.song_list[0] == Squeezie
-    assert a4.duration == Squeezie.duree
+    for i in range (99):
+        a5.add(Squeezie2)
+    assert a5.add(Squeezie) == True
+
+    for o in range (100):
+        a6.add(Squeezie2)
+    assert a6.add(Squeezie2) == False
+    assert a4.duration.to_secondes() == Squeezie.duree.to_secondes()
+
 
 # APPEL DES DIFFERENTES FONCTIONS TEST
 test_album_str()
@@ -134,8 +142,20 @@ test_add()
 #####################################
 # Test du comportement du programme #
 #####################################
-
-# QUELQUES TESTS ICI POUR TESTER QUE LES 3 CLASSES COLLABORENT CORRECTEMENT
-# ET PEUVENT ETRE UTILISE POUR CREER DES ALBUMS DE CHANSONS SELON LES CONSIGNES
-# DE LA MISSION
-# à fournir par les étudiants
+def test_program_behavior(line_num):
+    with open('music-db.txt', 'r') as f:
+        num = 1
+        album_list = [Album(num)]
+        for i in range(line_num):
+            line = f.readline()
+            lst = line.strip('\n').split()
+            song = Chanson(lst[0], lst[1], Duree(0, int(lst[2]), int(lst[3])))
+            if not album_list[-1].add(song):
+                num += 1
+                album_list.append(Album(num))
+                album_list[-1].add(song)
+        return(f"{album_list[0]}")
+assert test_program_behavior(3) == '''Album 1 3 chansons, 00:13:47
+Let's_Dance - David_Bowie - 00:04:05
+Relax - Frankie_Goes_To_Hollywood - 00:03:54
+Purple_Rain - Prince - 00:05:48'''
