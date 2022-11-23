@@ -77,8 +77,8 @@ class Duree :
 class Chanson :
     def __init__(self, t: str, a: str, d):
         if isinstance(t, str) and isinstance(a, str):
-            self.titre = t.replace(" ", "_")
-            self.auteur = a.replace(" ", "_")
+            self.titre = t
+            self.auteur = a
             self.duree = d
         else:
             raise TypeError
@@ -93,10 +93,13 @@ class Chanson :
 
 class Album :
     def __init__(self, numero: int):
-        self.num = numero
-        self.song_list = []
-        self.duration = Duree(0, 0, 0)
-        self.time_limit = Duree(1 ,15, 0)
+        if isinstance(numero, int):
+            self.num = numero
+            self.song_list = []
+            self.duration = Duree(0, 0, 0)
+            self.time_limit = Duree(1, 15, 0)
+        else:
+            raise TypeError
 
     def add(self, chanson):
         '''
@@ -116,15 +119,7 @@ class Album :
 
     def __str__(self):
         return f"Album {str(self.num)} {str(len(self.song_list))} chansons, {str(self.duration)}\n" + "\n".join([str(e) for e in self.song_list])
-a1 = Album(1)
-print(a1)
-x = a1.__str__()
-c = x.split()
-print(c)
-print(type(c[0]))
-
-
-'''if __name__ == "__main__":
+if __name__ == "__main__":
     # Grâce à la ligne ci-dessus, le code ci-dessous ne sera exécuté que si on n'exécute ce fichier directement.
     # Ceci nous permet d'éviter que le code ci-dessous sera exécuté lorsqu'on fait un import de ce fichier,
     # par exemple dans notre fichier test.py
@@ -140,4 +135,5 @@ print(type(c[0]))
                 album_list[-1].add(song)
 
         for i in range(len(album_list)):
-            print(f"{album_list[i]}\n")'''
+            print(f"{album_list[i]}\n")
+
